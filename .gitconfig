@@ -1,6 +1,6 @@
 [user]
-  name = Jeff Geerling
-  email = geerlingguy@mac.com
+  name = Grant Soyka
+  email = gsoyka@gmail.com
 [core]
   editor = vi
   excludesfile = ~/.gitignore

@@ -5,7 +5,7 @@ alias ssh-jenkins-dg="ssh gsoyka@107.23.253.39"
 alias gca="git commit -a -m"
 alias gp="git push"
 alias dockerrmall="docker rm $(docker ps -aq)"
-alias dockerstats="docker stats $(docker ps --format={.Names}})"
+alias dockerstats='while true; do TEXT=$(docker stats --no-stream $(docker ps --format={{.Names}})); sleep 0.1; clear; echo "$TEXT"; done'
 export BASH_CONF="bash_profile"
 export ANSIBLE_NOCOWS=1
 export PATH=~/Library/Python/3.6/bin:$PATH

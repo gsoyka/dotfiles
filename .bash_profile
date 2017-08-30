@@ -6,6 +6,7 @@ alias gca="git commit -a -m"
 alias gp="git push"
 alias dockerrmall="docker rm $(docker ps -aq)"
 alias dockerstats='while true; do TEXT=$(docker stats --no-stream $(docker ps --format={{.Names}})); sleep 0.1; clear; echo "$TEXT"; done'
+alias gua='find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull origin master \;'
 export BASH_CONF="bash_profile"
 export ANSIBLE_NOCOWS=1
 export PATH=~/Library/Python/3.6/bin:$PATH

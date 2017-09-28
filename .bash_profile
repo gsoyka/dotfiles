@@ -7,6 +7,7 @@ alias gp="git push"
 alias dockerrmall="docker rm $(docker ps -aq)"
 alias dockerstats='while true; do TEXT=$(docker stats --no-stream $(docker ps --format={{.Names}})); sleep 0.1; clear; echo "$TEXT"; done'
 alias gua='find . -type d -depth 1 -not -path ".*/" -not -path CloudFoundry -not -path docker -exec git --git-dir={}/.git --work-tree=$PWD/{} pull origin master \;'
+
 export BASH_CONF="bash_profile"
 export ANSIBLE_NOCOWS=1
 export PATH=~/Library/Python/3.6/bin:$PATH
@@ -26,6 +27,10 @@ if [ -f $brew_prefix/etc/bash_completion ]; then
   . $brew_prefix/etc/bash_completion
 fi
 
+function ecr_login {
+  eval "$(aws --profile $1 ecr get-login --no-include-email --region us-west-1)"
+}
 
-# added by Miniconda2 4.3.21 installer
-export PATH="/Users/gsoyka/miniconda2/bin:$PATH"
+function aws-mfa {
+  eval $(awsmfa --identity-profile $1-long-term --target-profile $1 --env)
+}

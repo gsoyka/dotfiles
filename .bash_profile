@@ -20,6 +20,7 @@ export PS1="\[\e[0;96m\]\]\w \[\e[0m\]\]\[$\] "
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
+eval $(thefuck --alias)
 
 # Turn on Git autocomplete.
 brew_prefix=`brew --prefix`

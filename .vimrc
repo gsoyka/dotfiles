@@ -1,52 +1,106 @@
-syntax on               " enable syntax highlighting
-set cursorline          " highlight the current line
-" set background=dark   " darker color scheme
-" set ruler             " show line number in bar
-set nobackup            " don't create pointless backup files; Use VCS instead
-set autoread            " watch for file changes
-set number              " show line numbers
-set showcmd             " show selection metadata
-set showmode            " show INSERT, VISUAL, etc. mode
-set showmatch           " show matching brackets
-set autoindent smartindent  " auto/smart indent
-set smarttab            " better backspace and tab functionality
-set scrolloff=5         " show at least 5 lines above/below
-filetype on             " enable filetype detection
-filetype indent on      " enable filetype-specific indenting
-filetype plugin on      " enable filetype-specific plugins
-" colorscheme cobalt      " requires cobalt.vim to be in ~/.vim/colors
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+set wildignore+=*.pyc,*.pyo,*.o
+set mouse=a
+set number
 
-" column-width visual indication
-let &colorcolumn=join(range(81,999),",")
-highlight ColorColumn ctermbg=235 guibg=#001D2F
 
-" tabs and indenting
-set autoindent          " auto indenting
-set smartindent         " smart indenting
-set expandtab           " spaces instead of tabs
-set tabstop=2           " 2 spaces for tabs
-set shiftwidth=2        " 2 spaces for indentation
+set clipboard=unnamed
 
-" bells
-set noerrorbells        " turn off audio bell
-set visualbell          " but leave on a visual bell
+"Behave like vim stead of vi
+"set nocompatible
 
-" search
-set hlsearch            " highlighted search results
-set showmatch           " show matching bracket
+syntax on
+set showcmd
+set wildmenu
 
-" other
-set guioptions=aAace    " don't show scrollbar in MacVim
-" call pathogen#infect()  " use pathogen
+"Highlight searches (use Ctrl+L to temporarily turn off highlighting
+set hlsearch
+nnoremap <C-L> :nohl<CR><C-L>
 
-" clipboard
-set clipboard=unnamed   " allow yy, etc. to interact with OS X clipboard
+set t_Co=256
 
-" shortcuts
-map <F2> :NERDTreeToggle<CR>
+"Use case insensitve search, except when using capital letters
+set ignorecase
+set smartcase
+"Allow backspacing over autoindent, line breaks and start of insert action
+set backspace=indent,eol,start
 
-" remapped keys
-inoremap {      {}<Left>
-inoremap {<CR>  {<CR>}<Esc>O
-inoremap {{     {
-inoremap {}     {}
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+"Indent hardtab express settings
+set expandtab
+set shiftwidth=2
+set softtabstop=2
+set number
+set wildignore+=*.pyc,*.pyo,*.o
+set mouse=a
+hi Search ctermbg=LightBlue
+set ruler
+
+if(!has('gui_running') && exists(':CSApprox'))
+    CSApprox
+endif
+
+" Search for highlighed text
+vnoremap // y/<C-R>"<CR>
+
+" Run python3
+nnoremap <silent> <F5> :w <CR> :!python3 %<CR>
+
+""""" Vundle Vim
+filetype off
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+" let vundle manage vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'dracula/vim'
+Plugin 'davidhalter/jedi-vim'
+"Plugin 'scrooloose/syntastic'
+Plugin 'altercation/vim-colors-solarized'
+
+call vundle#end()
+filetype plugin indent on
+
+
+""""" Nerdtree
+map <C-n> :NERDTreeToggle<CR>
+
+" Autoclose VIM if nerdtree is only window left
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+"""""vim-cpp-enhanced-highlight
+let g:cpp_class_scope_highlight = 1
+
+""""" Syntastic
+
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list=1
+"let g:syntastic_check_on_open=1
+"let g:syntastic_check_on_wq=0
+
+"""" Solarized
+set background=dark
+let g:solarized_termcolors=256
+let g:solarized_visibility="high"
+let g:solarized_contrast="high"
+colorscheme solarized
+
+" Search and put results in new buffer
+command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | tabedit | setlocal bt=nofile | put! a
+

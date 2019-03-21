@@ -1,6 +1,6 @@
 set expandtab
-set shiftwidth=2
-set softtabstop=2
+set shiftwidth=4
+set softtabstop=4
 set wildignore+=*.pyc,*.pyo,*.o
 set mouse=a
 set number
@@ -35,8 +35,8 @@ endif
 
 "Indent hardtab express settings
 set expandtab
-set shiftwidth=2
-set softtabstop=2
+set shiftwidth=4
+set softtabstop=4
 set number
 set wildignore+=*.pyc,*.pyo,*.o
 set mouse=a
@@ -66,9 +66,12 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'dracula/vim'
-Plugin 'davidhalter/jedi-vim'
+"Plugin 'davidhalter/jedi-vim'
 "Plugin 'scrooloose/syntastic'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin 'vim-syntastic/syntastic'
 
 call vundle#end()
 filetype plugin indent on
@@ -104,3 +107,5 @@ colorscheme solarized
 " Search and put results in new buffer
 command! -nargs=? Filter let @a='' | execute 'g/<args>/y A' | tabedit | setlocal bt=nofile | put! a
 
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1

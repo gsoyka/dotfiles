@@ -47,4 +47,6 @@
 	allowed = AKIAIOSFODNN7EXAMPLE
 	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 [init]
-	templateDir = /Users/gsoyka/.git-templates/git-secrets
+	templateDir = /Users/gsoyka/.git-template
+[fetch]
+	prune = true

@@ -3,12 +3,23 @@ export PATH=/usr/local/Cellar/python/3.7.3/Frameworks/Python.framework/Versions/
 export BASH_CONF="bashrc"
 export BASH_CONF="bash_profile"
 export KOPS_STATE_STORE=s3://kubernetes-config-bucket-configbucket-xcfn2xf3tn5n
-export AWS_CONFIG_FILE=~/.aws/organization_credentials.config
+export AWS_CONFIG_FILE=~/.aws/config
+export AWS_SDK_LOAD_CONFIG="true"
 export GOPATH=/Users/gsoyka/Work_Projects/go
+export USER=$(id -un)
+export USERID=$(id -u)
+export GROUP=$(id -gn)
+export GID=$(id -g)
+# export AWS_SESSION_TTL=1h
+# export AWS_ASSUME_ROLE_TTL=1h
+
+
 
 # Ansible Exports
 export ANSIBLE_NOCOWS=1
 export ANSIBLE_VAULT_PASSWORD_FILE=~/.vault_pass
+export ANSIBLE_RETRY_FILES_ENABLED=0
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # Nicer prompt.
 export PS1='\[\e[0;96m\]\]\w\[\e[0;33m\]\[$(__git_ps1)\] \[\e[0m\]\]\[$\] '
@@ -50,16 +61,16 @@ function ecr_login {
 }
 
 function fmgeo_ecr_login {
-  eval  "$(aws --profile pipeline-prod ecr get-login --no-include-email)"
-}
-
-function aws-mfa {
-  eval $(awsmfa --identity-profile $1-long-term --target-profile $1 --env)
+  eval "$(aws --profile pipeline-prod ecr get-login --no-include-email)"
 }
 
 function rancher-login {
   source ~/.rancher_credentials
   rancher login $endpoint --token $bearer_token
+}
+
+function bastion_ssh {
+  ssh -i ~/.ssh/bastion_rsa.pem -o "StrictHostKeyChecking=no" ubuntu@bastion.$1.fmgeo.com
 }
 
 ### Startup Items ###

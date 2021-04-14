@@ -13,6 +13,7 @@ export GID=$(id -g)
 # export AWS_SESSION_TTL=1h
 # export AWS_ASSUME_ROLE_TTL=1h
 
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 
 # Ansible Exports

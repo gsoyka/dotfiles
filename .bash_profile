@@ -40,6 +40,7 @@ alias dockerrmall="docker rm $(docker ps -aq)"
 alias dockerstats='while true; do TEXT=$(docker stats --no-stream $(docker ps --format={{.Names}})); sleep 0.1; clear; echo "$TEXT"; done'
 alias gua='find . -type d -depth 1 -not -path ".*/" -not -path CloudFoundry -not -path docker -exec git --git-dir={}/.git --work-tree=$PWD/{} pull origin master \;'
 alias md5sum='md5 -r'
+alias pip="pip3"
 
 # Java Aliases
 alias java8='export JAVA_HOME=$JAVA_8_HOME'
@@ -61,7 +62,7 @@ function ecr_login {
 }
 
 function fmgeo_ecr_login {
-  eval "$(aws --profile pipeline-prod ecr get-login --no-include-email)"
+  aws --profile pipeline ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 632106808859.dkr.ecr.us-east-1.amazonaws.com
 }
 
 function rancher-login {
@@ -74,12 +75,6 @@ function bastion_ssh {
 }
 
 ### Startup Items ###
-
-# Add kubernetes configs
-for f in `ls $HOME/.kube/config/ | grep config`
-do
-    export KUBECONFIG="$HOME/.kube/config/$f:$KUBECONFIG";
-done
 
 # default to Java 11
 java11
